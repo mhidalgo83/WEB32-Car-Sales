@@ -20,17 +20,20 @@ export const initialState = {
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ITEM:
-      if (state.car.features.indexOf(action.payload) === -1) {
-        return {
-          ...state,
-          additionalPrice: state.additionalPrice + action.payload.price,
-          car: {
-            ...state.car,
-            features: [...state.car.features, action.payload],
-          },
-        };
-      }
-      return state;
+      return {
+        ...state,
+        additionalPrice: state.additionalPrice + action.payload.price,
+        car: {
+          ...state.car,
+          features: [...state.car.features, action.payload],
+        },
+        additionalFeatures: state.additionalFeatures.filter((feature) => {
+          if (feature.id === action.payload.id) {
+            return !feature;
+          }
+          return feature;
+        }),
+      };
     case REMOVE_ITEM:
       console.log("Reducer", action.payload);
       return {
@@ -45,6 +48,7 @@ export const reducer = (state = initialState, action) => {
             return feature;
           }),
         },
+        additionalFeatures: [...state.additionalFeatures, action.payload],
       };
 
     default:
