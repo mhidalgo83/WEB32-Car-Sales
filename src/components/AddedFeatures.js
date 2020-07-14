@@ -1,13 +1,16 @@
 import React from "react";
 
 import AddedFeature from "./AddedFeature";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
 const AddedFeatures = (props) => {
+
+  //Added useSelector hook from redux-hooks
+  const {car} = useSelector(state => state)
   return (
     <div className="content">
       <h6>Added features:</h6>
-      {props.car.features.length ? (
+      {car.features.length ? (
         <ol type="1">
           {props.car.features.map((item) => {
             console.log(item);
@@ -21,10 +24,11 @@ const AddedFeatures = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    car: state.car,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     car: state.car,
+//   };
+// };
 
-export default connect(mapStateToProps, {})(AddedFeatures);
+export default AddedFeatures;
+// export default connect(mapStateToProps, {})(AddedFeatures);
